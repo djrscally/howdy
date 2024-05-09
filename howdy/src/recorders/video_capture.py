@@ -118,6 +118,11 @@ class VideoCapture:
 				self.config.get("video", "device_format", fallback="v4l2")
 			)
 
+		elif recording_plugin == "libcamera":
+			from recorders.libcamera_reader import libcamera_reader
+			self.internal = libcamera_reader(
+				self.config.get("video", "libcamera_camera_id")
+			)
 		else:
 			# Start video capture on the IR camera through OpenCV
 			self.internal = cv2.VideoCapture(
